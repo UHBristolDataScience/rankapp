@@ -13,7 +13,9 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 def register():
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
+        ## Setting password to username for speed during experiment...
+        #password = request.form['password'] 
+        password = request.form['username']
         db = get_db()
         error = None
 

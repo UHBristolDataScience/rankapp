@@ -8,8 +8,9 @@
   <form method="post">
     <label for="username">Username</label>
     <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
+    {# Removing password for speed as security not an issue during experiement.#}
+    {#<label for="password">Password</label>#}
+    {#<input type="password" name="password" id="password" required>#}
     <input type="submit" value="Register">
   </form>
 {% endblock %}
