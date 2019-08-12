@@ -11,6 +11,16 @@
     {# Removing password for speed as security not an issue during experiement.#}
     {#<label for="password">Password</label>#}
     {#<input type="password" name="password" id="password" required>#}
+    
+    <p>What is your job role?</p> 
+    <select name="job_title" id="job_title">
+    <option value="nurse">Nurse</option>
+    <option value="trainee">Trainee</option>
+    <option value="consultant">Consultant</option>
+    <option value="student">Student</option>
+    <option value="other">Other</option>
+    </select>
+    <br></br>
     <input type="submit" value="Register">
   </form>
 {% endblock %}

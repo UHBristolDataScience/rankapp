@@ -16,6 +16,7 @@ def register():
         ## Setting password to username for speed during experiment...
         #password = request.form['password'] 
         password = request.form['username']
+        job = request.form['job_title']
         db = get_db()
         error = None
 
@@ -30,8 +31,8 @@ def register():
 
         if error is None:
             db.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
+                'INSERT INTO user (username, password, job_title, years_experience) VALUES (?, ?, ?, ?)',
+                (username, generate_password_hash(password), job, 3)
             )
             db.commit()
             return redirect(url_for('auth.login'))
@@ -44,7 +45,9 @@ def register():
 def login():
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
+        ## Setting password to username for speed during experiment...
+        #password = request.form['password'] 
+        password = request.form['username']
         db = get_db()
         error = None
         user = db.execute(
