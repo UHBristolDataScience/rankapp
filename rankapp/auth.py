@@ -17,6 +17,7 @@ def register():
         #password = request.form['password'] 
         password = request.form['username']
         job = request.form['job_title']
+        years = request.form['years_experience']
         db = get_db()
         error = None
 
@@ -32,7 +33,7 @@ def register():
         if error is None:
             db.execute(
                 'INSERT INTO user (username, password, job_title, years_experience) VALUES (?, ?, ?, ?)',
-                (username, generate_password_hash(password), job, 3)
+                (username, generate_password_hash(password), job, years)
             )
             db.commit()
             return redirect(url_for('auth.login'))
