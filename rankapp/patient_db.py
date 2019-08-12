@@ -38,7 +38,7 @@ class IccaPatientData(implements(I_PatientData)):
         return self.df
 
     def queryDatabase(self):
-	try:
+        try:
 
             server = "ubhnt455.ubht.nhs.uk"
             database = "CISReportingDB"
