@@ -5,7 +5,9 @@ DROP TABLE IF EXISTS rank;
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  job_title TEXT NOT NULL,
+  years_experience TEXT NOT NULL
 );
 
 CREATE TABLE response (
