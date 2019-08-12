@@ -7,7 +7,7 @@
 {% block content %}
   <form method="post">
     <label for="username">Username</label>
-    <span><small>(Hint: use your initials or standard acronym so it is easy to remember.)</small></span>
+    <span><small>(Hint: use your initials or standard acronym so it is easy to remember!)</small></span>
     <input name="username" id="username" required>
     {# Removing password for speed as security not an issue during experiement.#}
     {#<label for="password">Password</label>#}
@@ -29,6 +29,8 @@
     <option value="6-10">6 to 10 years.</option>
     <option value=">10">More than 10 years.</option>
     </select>
+    <br></br>
+    <p>Note: collected data will be held securely within the trust and your identity will not be used in the analysis of results.</p>
     <br></br>
     <input type="submit" value="Register">
   </form>
