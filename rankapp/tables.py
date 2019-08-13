@@ -61,6 +61,8 @@ def finish():
 def submit_table1():
     if request.method == 'POST':
         global df, nrfd
+        #print('test:')
+        #print(request.form['discharge_status'])
         for name in df['Name']:    
             selected = request.form[name]
             if selected=="selected":

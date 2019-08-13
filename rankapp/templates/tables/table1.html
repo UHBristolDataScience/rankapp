@@ -37,20 +37,66 @@
     
     function setInputValue(input_id, val) {
         document.getElementById(input_id).setAttribute('value', val);
-    }    
-    $(function(){
-        
-    // add inputs to form based on which patients are present
-    var data = table.rows().data();
-    data.each(function (value, index) {
-        $('<input>').attr({
-        type: 'hidden',
-        id: `${value[0]}`,
-        name: `${value[0]}`,
-        value: 'unselected'}).appendTo('#nrfd_form');
-     });  
+        }    
+        $(function(){
+    
+        // add inputs to form based on which patients are present
+        var data = table.rows().data();
+        data.each(function (value, index) {
+            $('<input>').attr({
+            type: 'hidden',
+            id: `${value[0]}`,
+            name: `${value[0]}`,
+            value: 'Not ready for discharge'}).appendTo('#nrfd_form');
+         });  
     });
     
+    $( ".target" ).change(function() {
+        var str = "";
+        //$( ".target option:selected" ).each(function() {
+        //  str += $( this ).text() + " ";
+        //$( this ).each(function() {
+        //  str += $( "option:selected" ).text() + " ";
+        //});
+      var row = $( this ).closest('tr')
+      //alert( row.text() )  
+      //alert( $( this ).val() );
+      $(this).removeClass('active');
+      if ($(this).val()!="Not ready for discharge"){
+          $(this).addClass('active');
+          }
+    });
+
+//    $('#example tbody').on( 'click', 'td', function () {
+//        alert('Click')
+//    });
+    // To track clicks...    
+    //$('#example tbody').on( 'click', 'tr', function () {
+    //    alert('Click')
+    //    $(this).toggleClass('selected');
+    //    $(this).find("td").each(function(i) {
+    //        //toggle between adding/removing the 'active' class
+    //        $(this).toggleClass('active');
+    //      });
+    //    var pname = $(this).find("td:nth-child(1)").html();
+    //    if ($(this).hasClass('selected')){
+    //        setInputValue(pname, 'selected');
+    //     }
+    //     else{
+    //         setInputValue(pname, 'unselected');
+    //     }
+    //    } );
+            
+    // add inputs to form based on which patients are present
+    //var data = table.rows().data();
+    //data.each(function (value, index) {
+    //    $('<input>').attr({
+    //    type: 'hidden',
+    //    id: `${value[0]}`,
+    //    name: `${value[0]}`,
+    //    value: 'unselected'}).appendTo('#nrfd_form');
+    // });  
+    //});
     // To track selected patients (whole row clicks).    
     //$('#example tbody').on( 'click', 'tr', function () {
     //    $(this).toggleClass('selected');
@@ -88,7 +134,7 @@
                 {#<td>{{v.T_number}}</td>#}
                 {#<td>{{v.Age}}</td>#}
                 <td>{{v.Admission}}</td>
-                <td><select size="1" id="discharge_status" name="discharge_status">
+                <td><select class="target" size="1" id="discharge_status" name="discharge_status">
                     <option value="Not ready for discharge" selected="selected">
                         Not ready for discharge
                     </option>
