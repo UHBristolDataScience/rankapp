@@ -2,13 +2,13 @@ import pandas as pd
 import json
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for, current_app
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app, session
 )
 from werkzeug.exceptions import abort
 
 from rankapp.auth import login_required, logout
 from rankapp.db import get_db
-from rankapp.patient_db import *
+from rankapp.patient_db import DummyPatientData, IccaPatientData
 
 bp = Blueprint('tables', __name__)
 
@@ -16,7 +16,7 @@ bp = Blueprint('tables', __name__)
 ##   A class would be more elegant but requires url endpoint rules
 ##   rather than decorators as currently used here.
 df = pd.DataFrame()
-nrfd = dict()
+#nrfd = dict()
 
 
 @bp.route('/')
@@ -29,7 +29,7 @@ def index():
         patientData = IccaPatientData()
 
     df = patientData.returnPatientDf()
-    nrfd = {name:False for name in df['Name']}
+    #nrfd = {name:False for name in df['Name']}
     table_d = json.loads(df.to_json(orient='index'))
     columns = df.columns
                 
@@ -60,18 +60,39 @@ def finish():
 @login_required
 def submit_table1():
     if request.method == 'POST':
-        global df, nrfd
-        #print('test:')
-        #print(request.form['discharge_status'])
+        global df #, nrfd
+        user_id = session.get('user_id')
+        db = get_db()
+        
+        error = None
+        if db.execute(
+            'SELECT * FROM user WHERE id = ?', (user_id,)
+        ).fetchone() is None:
+            error = 'User with id {} not in database.'.format(user_id)
+
+        if error is None:
+            db.execute(
+                'INSERT INTO response (author_id) VALUES (?)',
+                (user_id,)
+            )
+            db.commit()
+        response_id = db.execute('SELECT LAST_INSERT_ROWID() as r_id').fetchone()['r_id']
+        print(response_id)
         
         for name in df['Name']:    
-            selected = request.form[name]
-            print(selected)
+            status = request.form[name]
+            db.execute(
+                'INSERT INTO status (response_id, author_id, status, name, bed_number) VALUES (?,?,?,?,?)',
+                (response_id, user_id, status, name, int(df[df['Name']==name]['Bed'].iloc[0]),)
+            )
+            db.commit()
         #    if selected=="selected":
         #        nrfd[name] = True
         #    elif selected=="unselected":
         #        nrfd[name] = False
-       
+        testdata = db.execute('SELECT * FROM status WHERE response_id==?', (response_id,)).fetchall()
+        for row in testdata:
+            print([row[key] for key in row.keys()])
         #print(nrfd)
     #return redirect(url_for('tables.table2'))
     return redirect(url_for('tables.finish'))
