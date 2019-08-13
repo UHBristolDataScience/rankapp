@@ -21,7 +21,7 @@
         "info":     false,
         "searching":   false,
         "order": [[ 1, "asc" ]],
-        select   : {style: 'multi'},
+        //select   : {style: 'multi'},
          columnDefs: [{
             targets: [1,2,3],
             className: 'dt-center'
@@ -51,30 +51,21 @@
      });  
     });
     
-    // cleaner way to track selected patients...    
-    $('#example tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-        $(this).find("td").each(function(i) {
-            //toggle between adding/removing the 'active' class
-            $(this).toggleClass('active');
-          });
-        var pname = $(this).find("td:nth-child(1)").html();
-        if ($(this).hasClass('selected')){
-            setInputValue(pname, 'selected');
-         }
-         else{
-             setInputValue(pname, 'unselected');
-         }
-        } );
-    //$('#testButton').click( function () {
-    //    //alert( table.rows('.selected').data().length +' row(s) selected' );
-    //    var i;
-    //    var text = '';
-    //    for (i = 0; i < table.rows('.selected').data().length; i++) {
-    //      text += table.rows('.selected').data()[i] + "\n";
-    //    } 
-    //    alert( text );
-    //} );
+    // To track selected patients (whole row clicks).    
+    //$('#example tbody').on( 'click', 'tr', function () {
+    //    $(this).toggleClass('selected');
+    //    $(this).find("td").each(function(i) {
+    //        //toggle between adding/removing the 'active' class
+    //        $(this).toggleClass('active');
+    //      });
+    //    var pname = $(this).find("td:nth-child(1)").html();
+    //    if ($(this).hasClass('selected')){
+    //        setInputValue(pname, 'selected');
+    //     }
+    //     else{
+    //         setInputValue(pname, 'unselected');
+    //     }
+    //    } );
 
      
   });
@@ -98,7 +89,10 @@
                 {#<td>{{v.Age}}</td>#}
                 <td>{{v.Admission}}</td>
                 <td><select size="1" id="discharge_status" name="discharge_status">
-                    <option value="Maybe ready for discharge" selected="selected">
+                    <option value="Not ready for discharge" selected="selected">
+                        Not ready for discharge
+                    </option>
+                    <option value="Maybe ready for discharge">
                         Maybe ready for discharge
                     </option>
                     <option value="Ready for A800">
