@@ -29,9 +29,10 @@ def index():
         patientData = IccaPatientData()
 
     df = patientData.returnPatientDf()
+    table_df = df.drop(['Age', 'T_number'], axis=1)
     #nrfd = {name:False for name in df['Name']}
-    table_d = json.loads(df.to_json(orient='index'))
-    columns = df.columns
+    table_d = json.loads(table_df.to_json(orient='index'))
+    columns = table_df.columns
                 
     return render_template('tables/table1.html', columns=columns, 
                             table_data=table_d)
