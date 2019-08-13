@@ -36,19 +36,20 @@ def index():
     return render_template('tables/table1.html', columns=columns, 
                             table_data=table_d)
 
-@bp.route('/table2')
-@login_required
-def table2():
-    global df
-    drop_rows = [i for i,name in enumerate(df['Name']) if nrfd[name]] 
-    df_selected = df.drop(drop_rows, axis=0)
-    df_selected['Rank'] = [i for i in range(len(df_selected))]
-    df_selected = df_selected[['Rank', 'Name', 'Bed', 'T_number', 'Age', 'Admission']]
-    table_d = json.loads(df_selected.to_json(orient='index'))
-    columns = df_selected.columns
-            
-    return render_template('tables/table2.html', columns=columns, 
-                            table_data=table_d)
+# Removing table 2 and condensing response into single page...
+#@bp.route('/table2')
+#@login_required
+#def table2():
+#    global df
+#    drop_rows = [i for i,name in enumerate(df['Name']) if nrfd[name]] 
+#    df_selected = df.drop(drop_rows, axis=0)
+#    df_selected['Rank'] = [i for i in range(len(df_selected))]
+#    df_selected = df_selected[['Rank', 'Name', 'Bed', 'T_number', 'Age', 'Admission']]
+#    table_d = json.loads(df_selected.to_json(orient='index'))
+#    columns = df_selected.columns
+#            
+#    return render_template('tables/table2.html', columns=columns, 
+#                            table_data=table_d)
 
 @bp.route('/logout_msg')
 def finish():
@@ -68,16 +69,17 @@ def submit_table1():
                 nrfd[name] = False
        
         print(nrfd)
-    return redirect(url_for('tables.table2'))
-
-@bp.route('/submit_table2', methods=('GET', 'POST'))
-@login_required
-def submit_table2():
-    if request.method == 'POST':
-        global df, nrfd
-        for name in df['Name']:    
-            if not nrfd[name]:
-                rank = request.form[name]
-                print("%s : %s" %(name,rank))
-        
+    #return redirect(url_for('tables.table2'))
     return redirect(url_for('tables.finish'))
+
+#@bp.route('/submit_table2', methods=('GET', 'POST'))
+#@login_required
+#def submit_table2():
+#    if request.method == 'POST':
+#        global df, nrfd
+#        for name in df['Name']:    
+#            if not nrfd[name]:
+#                rank = request.form[name]
+#                print("%s : %s" %(name,rank))
+#        
+#    return redirect(url_for('tables.finish'))
