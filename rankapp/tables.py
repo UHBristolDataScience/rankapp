@@ -63,14 +63,16 @@ def submit_table1():
         global df, nrfd
         #print('test:')
         #print(request.form['discharge_status'])
+        
         for name in df['Name']:    
             selected = request.form[name]
-            if selected=="selected":
-                nrfd[name] = True
-            elif selected=="unselected":
-                nrfd[name] = False
+            print(selected)
+        #    if selected=="selected":
+        #        nrfd[name] = True
+        #    elif selected=="unselected":
+        #        nrfd[name] = False
        
-        print(nrfd)
+        #print(nrfd)
     #return redirect(url_for('tables.table2'))
     return redirect(url_for('tables.finish'))
 

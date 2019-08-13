@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Remove NRFD.{% endblock %}</h1>
+  <h1>{% block title %}Select discharge status.{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <p>Please click to select the patients who are not ready to be discharged from intensive care.</p>
-  <p>When you have finished selecting patients click 'submit'.</p>
+  <p>Please click to select discharge status from the dropdown menus, for any patients who might be dischargeable based on their physiology.</p>
+  <p>When you have finished click 'submit'.</p>
   
   <script
   src="https://code.jquery.com/jquery-3.3.1.js"
@@ -52,19 +52,14 @@
     });
     
     $( ".target" ).change(function() {
-        var str = "";
-        //$( ".target option:selected" ).each(function() {
-        //  str += $( this ).text() + " ";
-        //$( this ).each(function() {
-        //  str += $( "option:selected" ).text() + " ";
-        //});
       var row = $( this ).closest('tr')
-      //alert( row.text() )  
-      //alert( $( this ).val() );
+
       $(this).removeClass('active');
       if ($(this).val()!="Not ready for discharge"){
           $(this).addClass('active');
           }
+    var pname = $(row).find("td:nth-child(1)").html();
+    setInputValue(pname, $(this).val());
     });
 
 //    $('#example tbody').on( 'click', 'td', function () {
