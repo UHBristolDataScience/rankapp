@@ -103,7 +103,7 @@ class IccaPatientData(implements(I_PatientData)):
             self.df['T_number'] = numbers
             self.df['Age'] = ages
             self.df['Admission'] = admissions
-            self.df['Discharge to'] = ['-' for i in self.df['Name']]
+            self.df['DischargeStatus'] = ['-' for i in self.df['Name']]
             
         except:
             print("Error: Could not connect to database.")

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  <p>Please click to select discharge status from the dropdown menus, for any patients who might be dischargeable based on their physiology.</p>
+  <p>Please identify patients who believe are physiologically fit for discharge, regardless of time of day or bed availability. Click to select discharge status from the dropdown menus for these patients.</p>
   <p>When you have finished click 'submit'.</p>
   
   <script
@@ -136,20 +136,26 @@
                     <option value="Maybe ready for discharge">
                         Maybe ready for discharge
                     </option>
-                    <option value="Ready for A525">
-                        Ready for A525
+                    <option value="High care (A525, CCU)">
+                        High care (A525, CCU)
                     </option>
-                    <option value="Ready for A700">
-                        Ready for A700
+                    <option value="Ward">
+                        Ward
                     </option>
-                    <option value="Ready for CCU">
-                        Ready for CCU
+                    <option value="Ward (renal)">
+                        Ward (renal)
                     </option>
-                    <option value="Renal support">
-                        Renal support
+                    <option value="Recovery">
+                        Recovery
                     </option>
-                    <option value="External transfer">
-                        External transfer
+                    <option value="External transfer (critical care)">
+                        External transfer (critical care)
+                    </option>
+                    <option value="External transfer (other)">
+                        External transfer (other)
+                    </option>
+                    <option value="Palliative">
+                        Palliative
                     </option>
                     <option value="Home">
                         Home
