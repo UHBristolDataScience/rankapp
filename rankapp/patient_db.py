@@ -7,6 +7,9 @@ class I_PatientData(Interface):
 
     def returnPatientDf(self):
         pass
+    
+    def maskNames(self):
+        pass
 
 class DummyPatientData(implements(I_PatientData)):
 
@@ -20,6 +23,7 @@ class DummyPatientData(implements(I_PatientData)):
             		      'Rachel Hackett', 'Chris Beckford', 'Princess Brown', 
             		      'Ofelia Henry', 'Phoebe Jones', 'Jennie Peters', 'Alice Fagon']
         self.df['Bed'] = [1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21]
+        self.df['Bed'] = [str(i) for i in self.df['Bed']] ## for compatibility with ICCA bed format.
         self.df['T_number'] = ['T38746', 'T18346', 'T32985', 'T23190', 'T19583',
                                 'T49568', 'T30297', 'T43078', 'T89765', 'T34287',
                                 'T36342', 'T28447', 'T51182', 'T43325', 'T56501',
@@ -32,6 +36,10 @@ class DummyPatientData(implements(I_PatientData)):
                                 '2019/03/15', '2019/03/24', '2019/04/02', '2019/03/21', '2019/03/28', '2019/03/29']
         
         self.df['DischargeStatus'] = ['-' for i in self.df['Name']]
+        #self.maskNames()
+
+    def maskNames(self):
+        self.df['Name'] = self.df['Name'].apply(lambda x: x[-3:].rjust(len(x), "*")) 
 
     def returnPatientDf(self):
         return self.df
@@ -42,9 +50,13 @@ class IccaPatientData(implements(I_PatientData)):
 
         self.df = pd.DataFrame()
         self.queryDatabase()
+        #self.maskNames()
 
     def returnPatientDf(self):
         return self.df
+
+    def maskNames(self):
+        self.df['Name'] = self.df['Name'].apply(lambda x: x[-3:].rjust(len(x), "*")) 
 
     def queryDatabase(self):
         try:

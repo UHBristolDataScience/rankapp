@@ -10,7 +10,7 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'rankapp.sqlite'),
     )
-    app.config['PATIENTDATA']='dummy'
+    app.config['PATIENTDATA']='icca'
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -18,6 +18,11 @@ def create_app(test_config=None):
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
+
+    ## Currently app is not reading from config file...?
+    #print(app.instance_path)
+    #print(app.config['PATIENTDATA'])
+    #print(app.config['SECRET_KEY'])
 
     # ensure the instance folder exists
     try:

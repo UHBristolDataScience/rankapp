@@ -78,22 +78,22 @@ def submit_table1():
             )
             db.commit()
         response_id = db.execute('SELECT LAST_INSERT_ROWID() as r_id').fetchone()['r_id']
-        print(response_id)
+        #print(response_id)
         
         for name in df['Name']:    
             status = request.form[name]
             db.execute(
-                'INSERT INTO status (response_id, author_id, status, name, bed_number) VALUES (?,?,?,?,?)',
-                (response_id, user_id, status, name, int(df[df['Name']==name]['Bed'].iloc[0]),)
+                'INSERT INTO status (response_id, author_id, status, name, bed_number, t_number) VALUES (?,?,?,?,?,?)',
+                (response_id, user_id, status, name, df[df['Name']==name]['Bed'].iloc[0],df[df['Name']==name]['T_number'].iloc[0],)
             )
             db.commit()
         #    if selected=="selected":
         #        nrfd[name] = True
         #    elif selected=="unselected":
         #        nrfd[name] = False
-        testdata = db.execute('SELECT * FROM status WHERE response_id==?', (response_id,)).fetchall()
-        for row in testdata:
-            print([row[key] for key in row.keys()])
+        #testdata = db.execute('SELECT * FROM status WHERE response_id==?', (response_id,)).fetchall()
+        #for row in testdata:
+        #    print([row[key] for key in row.keys()])
         #print(nrfd)
     #return redirect(url_for('tables.table2'))
     return redirect(url_for('tables.finish'))

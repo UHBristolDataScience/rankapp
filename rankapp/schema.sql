@@ -24,7 +24,8 @@ CREATE TABLE status (
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   status TEXT NOT NULL,
   name TEXT NOT NULL,
-  bed_number INTEGER NOT NULL,
+  bed_number TEXT NOT NULL,
+  t_number TEXT NOT NULL,
   FOREIGN KEY (author_id) REFERENCES user (id)
   FOREIGN KEY (response_id) REFERENCES response (id)
 );
